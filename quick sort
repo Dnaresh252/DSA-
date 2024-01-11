@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+int merge(int a[],int low,int high)
+{
+	int pivot=a[low];
+	int i=low;
+	int j=high;
+	while(i<j)
+	{
+		while(a[i]<=pivot and i<=high)
+		{
+			i++;
+		}
+		while(a[j]>pivot and j>=low)
+		{
+			j--;
+		}
+		if(i<j)
+		{
+			swap(a[i],a[j]);
+		}
+	}
+	swap(a[low],a[j]);
+	return j;
+}
+void quick_sort(int a[],int low,int high)
+{
+
+	if(low<high)
+	{
+		
+	int in=merge(a,low,high);
+	quick_sort(a,low,in-1);
+	quick_sort(a,in+1,high);
+
+}
+}
+int main()
+{
+	int n;
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++)
+	{
+	cin>>a[i];
+	}
+	quick_sort(a,0,n-1);
+	for(int i=0;i<n;i++)
+	{
+		cout<<a[i];
+	}
+}
