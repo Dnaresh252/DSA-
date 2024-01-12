@@ -1,0 +1,30 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+   int n;
+   cin>>n;
+   int a[n];
+   for(int i=0;i<n;i++)
+   {
+       cin>>a[i];
+   }
+   int smal=a[0];
+   int ssmal=INT_MAX;
+   for(int i=1;i<n;i++)
+   {
+   	if(a[i]<smal)
+   	{
+   		ssmal=smal;
+   		smal=a[i];
+	   }
+	   else if(a[i]!=smal and a[i]<ssmal)
+	   {
+	   	ssmal=a[i];
+	   }
+	   
+   }
+cout<<ssmal;
+    return 0;
+}
