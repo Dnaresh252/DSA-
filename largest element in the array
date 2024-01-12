@@ -1,0 +1,28 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+int largest_element(int a[],int n)
+{
+    int lar=a[0];
+    for(int i=0;i<n;i++)
+    {
+        if(a[i]>lar)
+        {
+            lar=a[i];
+        }
+    }
+
+    return lar;
+}
+int main() {
+   int n;
+   cin>>n;
+   int a[n];
+   for(int i=0;i<n;i++)
+   {
+       cin>>a[i];
+   }
+   int lar=largest_element(a,n);
+cout<<lar;
+    return 0;
+}
