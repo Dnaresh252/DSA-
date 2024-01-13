@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int a[5]={1,2,4,5};
+    int n=5;
+    int s=(n*(n+1))/2;
+    int s1=0;
+    for(int i=0;i<n-1;i++)
+    {
+    	s1=s1+a[i];
+	}
+	cout<<s-s1;
+   /* int xo1=0;
+    int xo2=0;
+    for(int i=0;i<4;i++)
+    {
+    	xo1=xo1^a[i];
+    	xo2=xo2^(i+1);
+	}
+	xo2=xo2^5;
+	cout<<xo2 xor xo1;*/
+}
