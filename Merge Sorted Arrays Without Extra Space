@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+void swapto(int a[],int b[],int ind1,int ind2)
+{
+    if(a[ind1]>b[ind2])
+    {
+        swap(a[ind1],b[ind2]);
+    }
+}
+int main()
+{
+    int a[4]={1,3,5,7};
+    int b[5]={0,2,6,8,9};
+    int g=0;
+    int c=4+5;
+    int gap=(c/2)+(c%2);
+    while(gap>0)
+    {
+        int left=0;
+        int right=gap;
+        while(right<c)
+        {
+            if(left<4 and right>=4)
+            {
+                swapto(a,b,left,right-4);
+
+            }
+            else if(left>=4)
+            {
+                 swapto(b,b,left-4,right-4);
+            }
+            else
+            {
+                    swapto(a,a,left,right);
+            }
+            left++;
+            right++;
+        }
+        if(gap==1)
+        {
+            break;
+        }
+        else{
+            gap=(gap/2)+(gap%2);
+        }
+        
+
+    }
+    for(int i=0;i<4;i++)
+    {
+        cout<<a[i];
+    }
+    for(int i=0;i<5;i++)
+    {
+        cout<<b[i];
+    }
+}
