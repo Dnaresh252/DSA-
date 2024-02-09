@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int a[10]={1,10,12,7,6,5,4,2,1,0};
+    int n=10;
+    if(n==1)
+    {
+      cout<<a[0];
+    }
+    if(a[0]>a[1])
+    {
+      cout<<a[0];
+    }
+    if(a[n-1]>a[n-2])
+    {
+      cout<<a[n-1];
+    }
+    int low=1;
+    int high=n-2;
+    while(low<=high)
+    {
+      int mid=(high+low)/2;
+      if(a[mid]>a[mid-1] and a[mid]>a[mid+1])
+      {
+         cout<<a[mid];
+      }
+      if(a[mid]>a[mid-1])
+      {
+         low=mid+1;
+      }
+      else{
+         high=mid-1;
+      }
+    }
+
+   
+
+}
