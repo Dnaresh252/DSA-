@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool check(int a[],int d,int cows)
+{
+  int last=a[0];
+  int cowcount=1;
+  for(int i=1;i<6;i++)
+  {
+    if(a[i]-last>=d)
+    {
+      cowcount++;
+      last=a[i];
+    }
+
+
+  }
+  if(cowcount>=cows)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+int main()
+{
+   
+
+    int a[6]={0,3,4,7,9,10};
+    int n=6;
+    sort(a,a+n);  
+    
+    int cows=4;
+    int low=0;
+    int high=a[n-1]-a[0];
+    while(low<=high)
+    {
+      int mid=(low+high)/2;
+     if(check(a,mid,cows))
+     {
+         low=mid+1;
+     }
+     else{
+      high=mid-1;
+     }
+    }
+    cout<<high;
+    
+    
+}
