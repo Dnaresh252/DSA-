@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+int check(int a[],int pages)
+{
+  int stu=1;
+  int laststore=0;
+  for(int i=0;i<5;i++)
+  {
+    if(laststore+a[i]<=pages)
+    {
+      laststore+=a[i];
+    }
+    else
+    {
+      stu++;
+      laststore=a[i];
+    }
+   
+  }
+   return stu;
+}
+int main()
+{
+   
+int a[6]={25,46,28,49,24};
+int n=6;
+int stu=4;
+int high=accumulate(a,a+n,0);
+int low=*max_element(a,a+n);
+while(low<=high)
+{
+    int mid=(low+high)/2;
+    int c=check(a,mid);
+    if(c==stu)
+    {
+      cout<<mid;
+      break;
+    }
+    if(c>stu)
+    {
+      low=mid+1;
+
+
+    }
+    else{
+      high=mid-1;
+    }
+
+}
+
+    
+}
