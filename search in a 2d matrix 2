@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+int bin(int a[],int t,int n)
+{
+    int low=0;
+    int high=n-1;
+    while(low<=high)
+    {
+        int mid=(low+high)/2;
+        if(a[mid]==t)
+        {
+            return mid;
+        }
+        if(a[mid]<t)
+        {
+            low=mid+1;
+        }
+        else{
+            high=mid-1;
+        }
+        
+    }
+    return -1;
+}
+int main()
+{
+int n=5;
+int m=5;
+ int a[n][m]={{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{10,21,23,26,30}};
+ int t=14;
+/* for(int i=0;i<n;i++)
+ {
+    int ind=bin(a[i],t,m);
+    if(ind!=-1)
+    {
+        cout<<i<<ind;
+    }
+ }*/
+
+int row=0;
+int col=m-1;
+while(row<n and col>=0)
+{
+     if(a[row][col]==t)
+     {
+        cout<<row<<col;
+     }
+     if(a[row][col]<t)
+     {
+        row++;
+     }
+     else
+     {
+        col--;
+     }
+}
+
+ }
+
+
+
