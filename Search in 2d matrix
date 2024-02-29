@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+int n=3;
+int m=4;
+ int a[n][m]={{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+ int t=8;
+ int low=0;
+ int high(n*m-1);
+ while(low<=high)
+ {
+    int mid=(low+high)/2;
+    int r=mid/m;
+    int c=mid%m;
+    if(a[r][c]==t)
+    {
+        cout<<mid;
+    }
+    if(a[r][c]<t)
+    {
+        low=mid+1;
+    }
+    else{
+        high=mid-1;
+    }
+
+ }
+
+
+
+}
