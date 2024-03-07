@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+  }
+};
+Node* con(vector<int>k)
+{
+  Node* head=new Node(k[0]);
+  Node* mov=head;
+  for(int i=1;i<k.size();i++)
+  {
+     Node* temp=new Node(k[i]);
+     mov->next=temp;
+     mov=mov->next;
+  }
+  return head;
+}
+int main()
+{
+ vector<int>k={1,2,3,4,5};
+Node* head=con(k);
+  while(head)
+  {
+    cout<<head->data;
+    head=head->next;
+  }
+}
