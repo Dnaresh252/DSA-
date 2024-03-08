@@ -1,0 +1,231 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1)
+  {
+    data=data1;
+    next=next1;
+  }
+};
+//converting array elements to linked list;
+Node* con(vector<int>k)
+{
+  Node* head=new Node(k[0]);
+  Node* mov=head;
+  for(int i=1;i<k.size();i++)
+  {
+     Node* temp=new Node(k[i]);
+     mov->next=temp;
+     mov=mov->next;
+  }
+  return head;
+}
+//deletetaion operatons;
+//deleteting the head of the linked list;
+Node *deletehead(Node *list){
+    // Write your code here
+    if(list==NULL)
+    {
+        return nullptr;
+    }
+    Node* temp=list;
+    list=list->next;
+    delete temp;
+    return list;
+}
+//deleteing the tail or last node of the linked list;
+Node *deleteLast(Node *list){
+    // Write your code here
+    if(list==nullptr || list->next==nullptr)
+    {
+        return nullptr;
+    }
+    Node* temp=list;
+    while(temp->next->next!=nullptr)
+    {
+      temp=temp->next;
+    }
+    
+    delete temp->next;
+    temp->next=nullptr;
+    return list;
+}
+//deleteing the kth element from the linked list;
+Node* deletek(Node* head,int k)
+{
+  if(head==nullptr)
+  {
+    return head;
+  }
+  if(k==1)
+  {
+    Node* temp=head;
+    head=head->next;
+    delete temp;
+    return head;
+  }
+  Node* temp=head;
+  int c=0;
+  Node* pre=nullptr;
+  while(temp!=nullptr)
+  {
+    c++;
+    if(c==k)
+    {
+      pre->next=pre->next->next;
+      delete temp;
+      break;
+    }
+    pre=temp;
+    temp=temp->next;
+  }
+  return head;
+}
+//deleteing an element from a linked list;
+Node* deleteELE(Node* head,int el)
+{
+  if(head==nullptr)
+  {
+    return head;
+  }
+  if(head->data==el)
+  {
+    Node* temp=head;
+    head=head->next;
+    delete temp;
+    return head;
+  }
+  Node* temp=head;
+  Node* pre=nullptr;
+  while(temp!=nullptr)
+  {
+    
+    if(temp->data==el)
+    {
+      pre->next=pre->next->next;
+      delete temp;
+      break;
+    }
+    pre=temp;
+    temp=temp->next;
+  }
+  return head;
+}
+//insertation operations
+//insertation at head;
+Node* insertathead(Node* head,int ele)
+{
+    Node* temp=new Node(ele);
+    temp->next=head;
+    head=temp;
+    return head;
+    
+}//inseratation at tail;
+Node* insertattail(Node* head,int ele)
+{
+  if(head==NULL)
+  {
+    return new Node(ele);
+  }
+  Node* temp=head;
+  while(temp->next!=NULL)
+  {
+    temp=temp->next;
+  }
+  Node* temp2=new Node(ele);
+  temp->next=temp2;
+  return head;
+
+}
+//inseration at kth place of linked list;
+Node* insertatk(Node* head,int ele,int k)
+{
+  if(head==NULL)
+  {
+    if(k==1)
+    {
+      return new Node(ele,head);
+    }
+  }
+  if(k==1)
+  {
+    return new Node(ele,head);
+  }
+  Node* temp=head;
+  int c=0;
+  while(temp!=nullptr)
+  {
+    c++;
+    if(c==k-1)
+    {
+      Node* n=new Node(ele);
+      n->next=temp->next;
+      temp->next=n;
+      break;
+    }
+    temp=temp->next;
+  }
+  return head;
+}
+//insertation the element before given element;
+Node* insertatbvalue(Node* head,int ele,int value)
+{
+  if(head==NULL)
+  {
+    return NULL;
+  }
+  if(head->data==value)
+  {
+    return new Node(ele,head);
+  }
+  Node* temp=head;
+
+  while(temp!=nullptr)
+  {
+    
+    if(temp->next->data==value)
+    {
+      Node* n=new Node(ele);
+      n->next=temp->next;
+      temp->next=n;
+      break;
+    }
+    temp=temp->next;
+  }
+  return head;
+}
+int main()
+{
+vector<int>k={0,1,2,3,4,5,6,7,8};
+//coneverting vector to linked list;
+Node* head=con(k);
+
+//deletion operations;
+head=deletehead(head);
+deleteLast(head);
+deletek(head,3); 
+deleteELE(head,6);
+
+//insertation operations;
+head=insertathead(head,4);
+insertattail( head, 9);
+insertatk(head,0,3);
+insertatbvalue(head,7,2);
+ while(head)
+  {
+    cout<<head->data;
+    head=head->next;
+  }
+}
