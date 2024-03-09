@@ -1,0 +1,228 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the doubly  linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  Node* back;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+   back=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1,Node* back1)
+  {
+    data=data1;
+    next=next1;
+    back=back1;
+  }
+};
+//converting array into doubly linked;
+Node* con(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* prev=head;
+    for(int i=1;i<k.size();i++)
+    {
+        Node* temp=new Node(k[i],nullptr,prev);
+        prev->next=temp;
+        prev=temp;
+    }
+    return head;
+} 
+//deletaion operations 
+//deletaion of head of doubly linked list;
+Node* deletehead(Node* head)
+{
+    if(head==nullptr || head->next==NULL)
+    {
+        return nullptr;
+    }
+    Node* pre=head;
+    head=head->next;
+    head->back=nullptr;
+    pre->next=nullptr;
+    delete pre;
+    return head;
+}
+//deletation of tail of doubly linked list;
+Node* deletetail(Node* head)
+{
+    if(head==NULL ||head->next==NULL)
+    {
+            return nullptr;
+    }
+    Node* tail=head;
+    while(tail->next!=NULL)
+    {
+        tail=tail->next;
+    }
+    Node* prev=tail->back;
+    prev->next=NULL;
+    delete tail;
+    return head;
+}
+//deletaion of kth element of doubly linked list;
+Node* deleteatkth(Node* head,int k)
+{
+    if(head==nullptr)
+    {
+        return nullptr;
+    }
+    int c=0;
+    Node* temp=head;
+    
+    while(temp!=NULL)
+    {
+        c++;
+        if(c==k)break;
+        temp=temp->next;
+    }
+    Node* pre=temp->back;
+    Node* front=temp->next;
+    if(pre==nullptr and front==nullptr)
+    {
+        return nullptr;
+    }
+    else if(pre==nullptr)
+    {
+        return deletehead(head);
+    }
+    else if(front==nullptr)
+    {
+       return deletetail(head);
+    }
+    
+    pre->next=front;
+    front->back=pre;
+
+    temp->next=nullptr;
+    temp->back=nullptr;
+    delete temp;
+    return head;
+    
+}
+//deletation of element from doubly linked list;
+void deleteEle(Node* node)
+{
+    Node* pre=node->back;
+    Node* front=node->next;
+    if(front==NULL)
+    {
+        pre->next=NULL;
+        node->back=NULL;
+        delete node;
+return ;
+    }
+    pre->next=front;
+    front->back=pre;
+    node->next=node->back=nullptr;
+    delete node;
+}
+//inseration operations;
+//insertation before the head of the doubly linked list;
+Node* insertatheadbf(Node* head,int ele)
+{
+    Node* temp=new Node(ele,head,nullptr);
+    head->back=temp;
+    return temp;
+}
+//insertation before the tail of the doubly linked list;
+Node* insertatbftail(Node* head,int ele)
+{
+    if(head->next==NULL)
+    {
+        return insertatheadbf(head,ele);
+    }
+    Node* tail=head;
+    while(tail->next!=NULL)
+    {
+        tail=tail->next;
+
+    }
+    Node* pre=tail->back;
+    Node* newnode=new Node(ele,tail,pre);
+    pre->next=newnode;
+    tail->back=newnode;
+    return head;
+}
+//insertationbeforkthplace of doubly linked list;
+Node* insertatkthplace(Node* head,int k,int value)
+{
+    if(head==NULL)
+    {
+        return insertatheadbf(head,value);
+    }
+    int c=0;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        c++;
+        if(c==k)
+        {
+            break;
+        }
+        temp=temp->next;
+    }
+    Node* pre=temp->back;
+    Node* newnode=new Node(value,temp,pre);
+    pre->next=newnode;
+    temp->back=newnode;
+    return head;
+
+
+}
+//inserataion of value before the given value;
+Node* insertatbeforevalue(Node* head,int value,int ele)
+{
+    if(head->data==value)
+    {
+        return insertatheadbf(head,ele);
+    }
+    Node* temp=head;
+  while(temp!=nullptr)
+  {
+      if(temp->data==value)
+      {
+        break;
+      }
+      temp=temp->next;
+  }
+  Node* pre=temp->back;
+  Node* newnode=new Node(ele,temp,pre);
+  pre->next=newnode;
+  temp->back=newnode;
+  return head;
+}
+int main()
+{
+    vector<int>k={1,2,3,4,5,6,7,8,9};
+    //Converting the array to doubly linked list;
+    Node* head=con(k);
+
+    //deletetaion operatations;
+
+    head=deletehead(head);
+    head=deletetail(head);
+    head= deleteatkth(head,3);
+    deleteEle(head->next->next->next);
+
+    //inseratation operations 
+
+    head=insertatheadbf(head,9);
+    head=insertatbftail(head,10);
+    head=insertatkthplace(head,6,9);
+    head=insertatbeforevalue(head,5,7);
+    
+    //print doubly linked list;
+  while(head)
+    {
+        cout<<head->data;
+        head=head->next;
+    }
+}
