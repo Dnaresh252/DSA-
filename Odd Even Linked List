@@ -1,0 +1,111 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    public:
+    Node(int data1,Node* next1)
+    {
+        data=data1;
+        next=next1;
+      
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i]);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+//brutte code for changeing the index elements by odd and even;
+Node* indexelechange(Node* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    vector<int>l; 
+    int i=0;
+    Node* temp=head;
+    while(temp!=nullptr and temp->next!=NULL)
+    {
+        l.push_back(temp->data);
+        temp=temp->next->next;
+    }
+    if(temp)
+    {
+        l.push_back(temp->data);
+    }
+    temp=head->next;
+     while(temp!=nullptr and temp->next!=NULL)
+    {
+        l.push_back(temp->data);
+        temp=temp->next->next;
+    }
+    if(temp)
+    {
+        l.push_back(temp->data);
+    }
+   
+    temp=head;
+    while(temp!=NULL)
+    {
+       temp->data=l[i];
+       i++;
+       temp=temp->next;
+   
+    }
+   return head;
+}
+//optimse code for changeing the index elements by odd and even;
+Node* indexelechange2(Node* head)
+{
+    if(head==NULL || head->next==nullptr)
+    {
+        return head;
+    }
+    Node* odd=head;
+    Node* even=head->next;
+    Node* evennode=even;
+    while(even!=NULL and even->next!=nullptr)
+    {
+        odd->next=odd->next->next;
+        even->next=even->next->next;
+        odd=odd->next;
+        even=even->next;
+
+    }
+    odd->next=evennode;
+    return head;
+}
+int main()
+{
+    vector<int>k={1,2,3,4,5};
+    
+    Node* head=conv(k);
+    head=indexelechange(head);
+    head=indexelechange2(head);
+    while(head)
+    {
+       cout<<head->data;    
+       head=head->next;
+    }
+       
+    
+}
