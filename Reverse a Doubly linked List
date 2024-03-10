@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    Node* back;
+    public:
+    Node(int data1,Node* next1,Node* back1)
+    {
+        data=data1;
+        next=next1;
+        back=back1;
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+        back=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i],nullptr,mov);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+//using stack reverse of dll;
+Node* rev(Node* head)
+{
+    Node* temp=head;
+    stack<int>l;
+    while(temp!=NULL)
+    {
+        l.push(temp->data);
+        temp=temp->next;
+    }
+    temp=head;
+    while(temp!=nullptr)
+    {
+        temp->data=l.top();
+        l.pop();
+        temp=temp->next;
+    }
+    return head;
+}
+//optimise code for reverse of doubly linked list;
+Node* rev2(Node* head)
+{
+    if(head == nullptr|| head->next==NULL)
+    {
+        return head;
+    }
+    Node* last=nullptr;
+    Node* current=head;
+    while(current!=NULL)
+    {
+         last=current->back;
+         current->back=current->next;
+         current->next=last;
+         current=current->back;
+    }
+    return last->back;
+}
+int main()
+{
+    vector<int>k={1,2,3,4,5,6};
+    Node* head=conv(k);
+    head=rev(head);//using stack;
+    head=rev2(head);// using reverse of links;
+    while(head)
+    {
+        cout<<head->data;
+        head=head->next;
+    }
+       
+    
+}
