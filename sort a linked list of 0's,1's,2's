@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    public:
+    Node(int data1,Node* next1)
+    {
+        data=data1;
+        next=next1;
+      
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i]);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+// sorting linked list o's ,1's,2's;
+Node* sort012(Node* head)
+{
+    Node* zeronode=new Node(-1);
+    Node* onenode= new Node(-1);
+    Node* twonode= new Node(-1);
+    Node* zero=zeronode;
+    Node* one=onenode;
+    Node* two=twonode;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==0)
+        {
+           
+           zero->next=temp;
+           zero=temp;
+        }
+        else if(temp->data==1)
+        {
+            one->next=temp;
+            one=temp;
+        }
+        else{
+   
+            two->next=temp;
+            two=temp;
+        }
+        temp=temp->next;
+    }
+    zero->next=(onenode->next)? onenode->next:twonode->next;
+    one->next=twonode->next;
+    two->next=NULL;
+    return zeronode->next;
+}
+
+int main()
+{
+    vector<int>k={1,0,2,1,0,2,1,0};
+    
+    Node* head=conv(k);
+    head=sort012(head);
+    while(head)
+    {
+       cout<<head->data;    
+       head=head->next;
+    }
+       
+    
+}
