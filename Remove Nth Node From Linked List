@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    public:
+    Node(int data1,Node* next1)
+    {
+        data=data1;
+        next=next1;
+      
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i]);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+Node* removeNtNode(Node* head,int k)
+{
+    Node* fast=head;
+    Node* slow=head;
+   for(int i=0;i<k;i++)
+   {
+    fast=fast->next;
+   }
+    while(fast->next!=NULL)
+    {
+    
+     slow=slow->next;
+       fast=fast->next;
+    }
+    if(fast==NULL)
+    {
+return head->next;
+    }
+    Node* freeee=slow->next;
+    slow->next=slow->next->next;
+    delete freeee;
+    return head;
+
+}
+
+int main()
+{
+    vector<int>k={1,2,3,4,5,6,7,8};
+    
+    Node* head=conv(k);
+    head=removeNtNode(head,2);
+
+    while(head)
+    {
+       cout<<head->data;    
+       head=head->next;
+    }
+       
+    
+}
