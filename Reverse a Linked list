@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    public:
+    Node(int data1,Node* next1)
+    {
+        data=data1;
+        next=next1;
+      
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i]);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+//using iterative method
+Node* reversell(Node* head)
+{
+    Node* temp=head;
+    Node* front;
+    Node* pre=nullptr;
+    while(temp!=NULL)
+    {
+        front=temp->next;
+        temp->next=pre;
+        pre=temp;
+        temp=front;
+    }
+    return pre;
+}
+//using recursion
+Node* reversellrecur(Node* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    Node* newnode= reversellrecur(head->next);
+    Node* front=head->next;
+    front->next=head;
+    head->next=NULL;
+    return newnode;
+}
+
+int main()
+{
+    vector<int>k={1,2,3,4,5,6,7,8};
+    
+    Node* head=conv(k);
+   
+   head=reversell(head);
+   head=reversellrecur(head);
+while(head)
+{
+    cout<<head->data;
+    head=head->next;
+}
+    
+       
+    
+}
