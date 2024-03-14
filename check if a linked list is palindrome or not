@@ -1,0 +1,95 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    public:
+    Node(int data1,Node* next1)
+    {
+        data=data1;
+        next=next1;
+      
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i]);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+//using iterative method
+Node* reversell(Node* head)
+{
+    Node* temp=head;
+    Node* front;
+    Node* pre=nullptr;
+    while(temp!=NULL)
+    {
+        front=temp->next;
+        temp->next=pre;
+        pre=temp;
+        temp=front;
+    }
+    return pre;
+}
+
+bool checkpalindrome(Node* head)
+{
+    Node* slow=head;
+    Node* fast=head;
+    while(fast->next!=NULL and fast->next->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+     Node* newnode= reversell(slow->next);
+       Node* second=newnode;
+         Node* first=head;
+         while(second!=NULL)
+         {
+            if(first->data!=second->data)
+            {
+                reversell(newnode);
+                return false;
+            }
+            first=first->next;
+            second=second->next;
+         }
+         reversell(newnode);
+         return true;
+
+}
+
+int main()
+{
+    vector<int>k={1,2,3,2,1};
+    
+    Node* head=conv(k);
+   if(checkpalindrome(head))
+   {
+    cout<<"palindrome";
+   }
+   else{
+    cout<<"NOT Palindrome";
+   }
+  
+    
+       
+    
+}
