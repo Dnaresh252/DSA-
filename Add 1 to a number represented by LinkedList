@@ -1,0 +1,127 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+    public:
+    Node(int data1,Node* next1)
+    {
+        data=data1;
+        next=next1;
+      
+    }
+    public:
+    Node(int data1)
+    {
+        data=data1;
+        next=nullptr;
+    }
+};
+Node* conv(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* mov=head;
+    for(int i=1;i<k.size();i++)
+    {
+       Node* temp=new Node(k[i]);
+       mov->next=temp;
+       mov=temp;
+
+    }
+    return head;
+
+}
+//using iterative method
+Node* reversell(Node* head)
+{
+    Node* temp=head;
+    Node* front;
+    Node* pre=nullptr;
+    while(temp!=NULL)
+    {
+        front=temp->next;
+        temp->next=pre;
+        pre=temp;
+        temp=front;
+    }
+    return pre;
+}
+//using iterative method to add 1 to linked list;
+Node* add1toll(Node* head)
+{
+    
+    head=reversell(head);
+    int carry=1;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+       temp->data=temp->data+carry;
+       if(temp->data<10)
+       {
+        carry=0;
+        break;
+       }
+       else{
+        temp->data=0;
+        carry=1;
+       }
+       temp=temp->next;
+    }
+   if(carry)
+   {
+    Node* newnode=new Node(carry);
+    head=reversell(head);
+    newnode->next=head;
+    return newnode;
+   }
+   head= reversell(head);
+    return head;
+}
+int helper(Node* temp)
+{
+    if(temp==NULL)
+    {
+        return 1;
+    }
+    int carry=helper(temp->next);
+    temp->data=temp->data+carry;
+    if(temp->data<10)
+    {
+        return 0;
+    }
+    temp->data=0;
+    return 1;
+}
+//using recursion on adding 1 to linked list
+Node* addtoll2(Node* head)
+{
+    int carry=helper(head);
+    if(carry==1)
+    {
+        Node* newnode=new Node(carry);
+        newnode->next=head;
+        return newnode;
+    }
+    return head;
+
+}
+
+int main()
+{
+    vector<int>k={9,9,9,9};
+    
+    Node* head=conv(k);
+    //head=add1toll(head);
+    head=addtoll2(head);
+    while(head)
+    {
+        cout<<head->data;
+        head=head->next;
+    }
+  
+    
+       
+    
+}
