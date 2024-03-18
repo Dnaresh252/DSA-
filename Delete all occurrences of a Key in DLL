@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the doubly  linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  Node* back;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+   back=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1,Node* back1)
+  {
+    data=data1;
+    next=next1;
+    back=back1;
+  }
+};
+ 
+//converting array into doubly linked;
+Node* con(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* prev=head;
+    for(int i=1;i<k.size();i++)
+    {
+        Node* temp=new Node(k[i],nullptr,prev);
+        prev->next=temp;
+        prev=temp;
+    }
+    return head;
+} 
+Node* deletealloccur(Node* head,int val)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==val)
+        {
+            if(temp==head)
+            {
+                head=head->next;
+            }
+            Node* nextnode=temp->next;
+            Node* prenode=temp->back;
+            if(nextnode)
+            {
+                nextnode->back=prenode;
+            }
+            if(prenode)
+            {
+                prenode->next=nextnode;
+            }
+            delete temp;
+            temp=nextnode;
+        }
+        else{
+            temp=temp->next;
+        }
+    }
+    return head;
+}
+int main()
+{
+    vector<int>k={1,2,3,4,5,6,7,8,9};
+    //Converting the array to doubly linked list;
+    Node* head=con(k);
+    
+    head=deletealloccur(head,5);
+  while(head)
+    {
+        cout<<head->data;
+        head=head->next;
+    }
+}
