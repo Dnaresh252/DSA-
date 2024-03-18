@@ -1,0 +1,112 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the doubly  linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  Node* back;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+   back=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1,Node* back1)
+  {
+    data=data1;
+    next=next1;
+    back=back1;
+  }
+};
+ 
+//converting array into doubly linked;
+Node* con(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* prev=head;
+    for(int i=1;i<k.size();i++)
+    {
+        Node* temp=new Node(k[i],nullptr,prev);
+        prev->next=temp;
+        prev=temp;
+    }
+    return head;
+} 
+void findallpairs(Node* head,int val)
+{
+    Node* temp=head;
+   vector<vector<int>>l;
+    while(temp!=NULL)
+    {
+          Node* temp1=temp->next;
+          while(temp1!=NULL)
+          {
+            int k=temp->data+temp1->data;
+            if(k==val)
+            { 
+
+                cout<<temp->data<<" "<<temp1->data;
+                cout<<endl;
+            }
+
+            if(k>val)
+            {
+                break;
+            }
+            temp1=temp1->next;
+          }
+        temp=temp->next;
+    }
+}
+Node* findtail(Node* head)
+{
+    Node* temp=head;
+    while(temp->next!=NULL)
+    {
+          temp=temp->next;
+    }
+return temp;
+}
+//optimise code;
+vector<pair<int,int>> findallpairs2(Node* head,int k)
+{
+     vector<pair<int,int>>l;
+    Node* left=head;
+    Node* right=findtail(head);
+
+    while(left->data<right->data)
+    {
+        int val=left->data+right->data;
+        if(val==k)
+        {
+          l.push_back({left->data,right->data});
+          left=left->next;
+          right=right->back;
+        }
+       else if(val>k)
+        {
+            right=right->back;
+        }
+        else
+        {
+            left=left->next;
+        }
+    }
+    return l;
+}
+int main()
+{
+    vector<int>k={1,2,3,4,5,6,7,8,9};
+    //Converting the array to doubly linked list;
+    Node* head=con(k);
+    vector<pair<int,int>>l=findallpairs2(head,5);
+    for(const auto& k:l)
+    {
+        cout<<k.first<<" "<<k.second<<endl;
+    }
+   
+}
