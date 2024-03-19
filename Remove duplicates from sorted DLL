@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the doubly  linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  Node* back;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+   back=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1,Node* back1)
+  {
+    data=data1;
+    next=next1;
+    back=back1;
+  }
+};
+ 
+//converting array into doubly linked;
+Node* con(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* prev=head;
+    for(int i=1;i<k.size();i++)
+    {
+        Node* temp=new Node(k[i],nullptr,prev);
+        prev->next=temp;
+        prev=temp;
+    }
+    return head;
+} 
+//remove dulpicates;
+Node* removedulpicates(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL and temp->next!=NULL)
+    {
+        Node* nextnode=temp->next;
+        while(nextnode!=NULL and nextnode->data==temp->data)
+        {
+            Node* duplicate=nextnode;
+            nextnode=nextnode->next;
+            delete duplicate;
+        }
+        temp->next=nextnode;
+        if(nextnode)
+        {
+            nextnode->back=temp;
+        }
+        temp=temp->next;
+
+    }
+    return head;
+}
+
+
+int main()
+{
+    vector<int>k={1,1,2,3,3,4,7};
+    //Converting the array to doubly linked list;
+   
+    Node* head=con(k);
+     head=removedulpicates(head);
+     while(head)
+     {
+        cout<<head->data;
+        head=head->next;
+     }
+  
+   
+}
