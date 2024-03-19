@@ -1,0 +1,110 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the doubly  linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  Node* back;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+   back=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1,Node* back1)
+  {
+    data=data1;
+    next=next1;
+    back=back1;
+  }
+};
+ 
+//converting array into doubly linked;
+Node* con(vector<int>k)
+{
+    Node* head=new Node(k[0]);
+    Node* prev=head;
+    for(int i=1;i<k.size();i++)
+    {
+        Node* temp=new Node(k[i],nullptr,prev);
+        prev->next=temp;
+        prev=temp;
+    }
+    return head;
+} 
+Node* reverse(Node* temp)
+{
+    Node* last=NULL;
+    Node* current=temp;
+
+    while(current!=NULL)
+    {
+        last=current->back;
+        current->back=current->next;
+        current->next=last;
+        current=current->back;
+    }
+    return last->back;      
+}
+Node* findkthnode(Node* temp,int k)
+{
+    k-=1;
+    while(temp!=NULL and k>0)
+    {
+        
+         k--;
+        temp=temp->next;
+        
+    }
+    return temp;
+}
+//reverse Nodes in k group
+Node* reversekthgroup(Node* head,int k)
+{
+    Node* temp=head;
+    Node* prev=NULL;
+    while(temp!=NULL)
+    {
+        Node* kthnode=findkthnode(temp,k);
+        if(kthnode==NULL)
+        {
+            if(prev) prev->next=temp;
+            break;
+        }
+        Node* nextnode=kthnode->next;
+        kthnode->next=NULL;
+        reverse(temp);
+        if(temp==head)
+        {
+            head=kthnode;
+        }
+        else
+        {
+            prev->next=kthnode;
+        }
+        prev=temp;
+        temp=nextnode;
+    }
+    return head;
+
+}
+
+int main()
+{
+    vector<int>k={1,1,2,3,3,4,7};
+    //Converting the array to doubly linked list;
+   
+    Node* head=con(k);
+     head=reversekthgroup(head,3);
+     while(head)
+     {
+        cout<<head->data;
+        head=head->next;
+     }
+  
+   
+}
