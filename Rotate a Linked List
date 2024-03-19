@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1)
+  {
+    data=data1;
+    next=next1;
+  }
+};
+Node* con(vector<int>k)
+{
+  Node* head=new Node(k[0]);
+  Node* mov=head;
+  for(int i=1;i<k.size();i++)
+  {
+     Node* temp=new Node(k[i]);
+     mov->next=temp;
+     mov=mov->next;
+  }
+  return head;
+}
+//rotate linked list;
+Node* rotatell(Node* head,int k)
+{
+    Node* temp=head;
+    int l=1;
+    while(temp->next!=NULL)
+    {
+         l++;
+         temp=temp->next;
+    }
+   Node* tail=temp;
+   tail->next=head;
+   if(k%l==0)
+   {
+    return head;
+   }
+   k=k%l;
+l=l-k;
+   temp=head;
+   while(l--)
+   {
+        temp=temp->next;
+   }
+
+head=temp->next;
+temp->next=NULL;
+return head;
+
+
+}
+int main()
+{
+vector<int>k={0,1,2,3,4,5,6,7,8};
+//coneverting vector to linked list;
+Node* head=con(k);
+head=rotatell(head,3);
+ while(head)
+  {
+    cout<<head->data;
+    head=head->next;
+  }
+}
