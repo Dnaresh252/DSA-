@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1)
+  {
+    data=data1;
+    next=next1;
+  }
+};
+Node* con(vector<int>k)
+{
+  Node* head=new Node(k[0]);
+  Node* mov=head;
+  for(int i=1;i<k.size();i++)
+  {
+     Node* temp=new Node(k[i]);
+     mov->next=temp;
+     mov=mov->next;
+  }
+  return head;
+}
+//meerge two sorted llinked list;
+Node* merge(Node* head1,Node* head2)
+{
+  Node* t1=head1;
+  Node* t2=head2;
+  Node* dum=new Node(-1);
+  Node* temp=dum;
+  while(t1!=NULL and t2!=NULL)
+  {
+    
+      if(t1->data<t2->data)
+      {
+        temp->next=t1;
+        temp=t1;
+        t1=t1->next;
+      }
+      else{
+        temp->next=t2;
+        temp=t2;
+        t2=t2->next;
+      }
+    
+
+  }
+if(t1)
+{
+  temp->next=t1;
+}
+else{
+  temp->next=t2;
+}
+return dum->next;
+}
+int main()
+{
+vector<int>k={1,2,3,4,5};
+vector<int>f={1,2,4,4,5,5,6,7};
+//coneverting vector to linked list;
+Node* head=con(k);
+Node* head1=con(f);
+Node* h=merge(head,head1);
+while(h)
+{
+  cout<<h->data;
+  h=h->next;
+}
+
+}
