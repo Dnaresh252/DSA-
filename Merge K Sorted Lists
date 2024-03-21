@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+//class for the linked list
+class Node
+{
+  public:
+  int data;
+  Node* next;
+  public:
+  Node(int data1)
+  {
+   data=data1;
+   next=nullptr;
+  }
+  public:
+  Node(int data1,Node* next1)
+  {
+    data=data1;
+    next=next1;
+  }
+};
+Node* con(vector<int>k)
+{
+  Node* head=new Node(k[0]);
+  Node* mov=head;
+  for(int i=1;i<k.size();i++)
+  {
+     Node* temp=new Node(k[i]);
+     mov->next=temp;
+     mov=mov->next;
+  }
+  return head;
+}
+Node* merge(vector<Node*>l)
+{
+  priority_queue<pair<int,Node*> ,
+  vector<pair<int,Node*>>,greater<pair<int,Node*>>>pq;
+  for(int i=0;i<l.size();i++)
+  {
+      if(l[i])
+      {
+        pq.push({l[i]->data,l[i]});
+      }
+  }
+  Node* dum=new Node(-1);
+  Node* temp=dum;
+  while(!pq.empty())
+  {
+  auto it=pq.top();
+  pq.pop();
+  if(it.second->next)
+  {
+    pq.push({it.second->next->data,it.second->next});
+  }
+  temp->next=it.second;
+  temp=it.second;
+  }
+  return dum->next;
+
+}
+int main()
+{
+vector<int>k={1,2,3,4,5};
+vector<int>f={1,2,4,};
+vector<int>h={3,4,5,7};
+vector<int>j={6,7,8,9};
+//coneverting vector to linked list;
+Node* head=con(k);
+Node* head1=con(f);
+Node* head2=con(h);
+Node* head3=con(j);
+vector<Node*>a;
+a.push_back(head);
+a.push_back(head1);
+a.push_back(head2);
+a.push_back(head3);
+
+//merge k sorted ll;
+Node* newhead=merge(a);
+while(newhead)
+{
+  cout<<newhead->data;
+  newhead=newhead->next;
+}
+
+}
