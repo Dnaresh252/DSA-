@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+ int n=13;
+ int k=2;
+ //changing the bit to 1;
+int j=n|(1<<k);
+//cout<<j;
+//clearing the ith bit;
+int f=n&~(1<<k);
+//cout<<f;
+//toggle the ith bit;
+int g=n^(1<<k);
+//cout<<g;
+// remove the last setbit (rightmost);
+int b=n&n-1;
+//cout<<b;
+//checking if   the number is apoer of 2 or not;
+if(n&n-1==0)
+{
+  //cout<<"yes";
+}
+else{
+  //cout<<"no";
+}
+//count number of set bits;
+int c=0;
+while(n>1)
+{
+  c=c+(n&1);
+  n=n>>1;
+}
+if(n==1)
+{
+  c=c+1;
+}
+cout<<c;
+
+}
+    
+    
+   
